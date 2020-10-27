@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Socialite</title>
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous">
+            
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ==" crossorigin="anonymous" />
+            <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+
+
+
+
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+                crossorigin="anonymous"></script>
+                
+            <script
+                src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+                crossorigin="anonymous"></script>
+                
+                
+                       {% block head %}
+                         
+                       {% endblock head %}
+
+            
+        <style>
+            {% block css %}
+              
+            {% endblock css %}
+            .profile_dp{
+height:3em;
+margin-top: -0.5em;
+margin-bottom: -0.5em;
+border-radius: 200px 200px 200px 200px;
+-moz-border-radius: 200px 200px 200px 200px;
+-webkit-border-radius: 200px 200px 200px 200px;
+border: 1.5px solid #000000;
+
+}
+
+/* button dots */
+.test:after {
+  content: '\2807';
+  font-size: 30px;
+  }
+
+/*loader*/
+.loader {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 10;
+}
+.loader .bounce {
+  position: relative;
+  background-color: #add9fb;
+  margin-left: 10px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: bounce 500ms alternate infinite ease;
+}
+.loader .dot-text {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  color: #6a99e6;
+}
+.loader .dot-text:before {
+  content: "Loading";
+  font-weight: bold;
+  font-size: 25px;
+  animation: loading-text 3s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleY(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleY(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+.bounce:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bounce:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+
+
+    </style>
+    </head>
+    <body>
+
+        <!--navbar start-->
+        <nav style="border-radius: 0px 0px 10px 10px;
+            -moz-border-radius: 0px 0px 10px 10px;
+            -webkit-border-radius: 0px 0px 10px 10px;
+            border: 0.5px solid #d0f7fe;margin-bottom: 2em;" class="navbar sticky-top
+            navbar-expand-lg
+            navbar-light bg-light">
+            
+
+            <a class="navbar-brand  " href="/userpage"><img style="height: 4.2em;
+                margin-bottom: -1.2em;
+                margin-top: -1.2em; margin-left:-1em;" src="https://i.imgur.com/t81Henw.png" alt="">
+            </a>
+            {% block chatbutton %}
+              
+            {% endblock chatbutton %}
+            
+
+            
+            <div style="  margin-top: -1em;
+            margin-bottom: -1em;"  class="navbar-brand mx-auto ">
+                <form style="margin-bottom: -.4em; margin-top: .8em;" method="get" action="/userpage/search" >
+                    <div style="height: 1.5em;" class="input-group mb-2 mx-auto">
+                        <input style="width: 38vw;height: 2.1em;" type="text" class="form-control" name="username" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" required>
+                        <div class="input-group-append">
+                          <button style="padding: 2px" class="btn btn-outline-primary" type="submit" id="button-addon2"><svg width="1em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                          </svg></button>
+                        </div>
+                    </div>
+                </form>
+
+                {% block story %}
+          
+                 {% endblock story %}
+            </div>
+
+            
+
+            <div class="dropleft ml-auto">
+                <a class="test " style="text-decoration: none;" href="#dropdown" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 
+                </a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" aria-expanded="false">
+                  <a class="dropdown-item" href="/userpage/about">About</a>
+                  <a class="dropdown-item" href="/userpage/about">Feedback</a>
+                  <a class="dropdown-item" href="/userpage/about">Contact US</a>
+                </div>
+            </div>
+            
+
+            
+
+            {% block nav_btn1 %}
+
+            {% endblock nav_btn1 %}
+          
+
+        </nav>
+
+        <!--navbarend-->
+
+        <!--loaderstart-->
+
+        <!--loaderend-->
+        <!--modalstart-->
+
+        {% block modals %}
+
+        {% endblock modals %}
+
+
+        <!--modalend-->
+
+
+
+
+        <!--messages start-->
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}} alert-dismissible fade show"
+            role="alert">
+            <strong>{{msg}} !!</strong>
+            <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+        <!--messages end-->
+
+
+
+        <!--loader-->
+
+        
+        <div style="height: 100vh;" class="loader">
+            <div class="bounce"></div>
+            <div class="bounce"></div>
+            <div class="bounce"></div>
+            <div class="dot-text"></div>
+
+
+
+            <center>
+                <img style="height: 5em;
+                margin-bottom:0em;
+                margin-top: 1.2em; margin-left:-1em;" src="https://i.imgur.com/t81Henw.png" alt="">
+            </center>
+        </div>
+        
+
+
+
+
+
+        <!--loader-->
+
+
+
+        {% block body %}
+
+        {% endblock body %}
+        <div style="margin-bottom: 10vh; margin-top: 10vh;">
+        <center><a  href="/userpage"><img style="height: 6.2em;
+            margin-bottom: -1.2em;
+            margin-top: -1.2em; margin-left:-1em;" src="https://i.imgur.com/t81Henw.png" alt="">
+        </a></center>
+        
+        </div>
+
+
+
+        <!--nav bottom-->
+        <nav style="border-radius: 10px 10px 0px 0px;
+            -moz-border-radius: 10px 10px 0px 0px;
+            -webkit-border-radius: 10px 10px 0px 0px;
+            border: 0.5px solid #d0f7fe; height: 3.4em;" class="navbar fixed-bottom
+            navbar-light
+            bg-light">
+            <div class="navbar-nav mr-auto">
+                {% if request.user.is_authenticated %}
+
+
+                <a style="margin-top:-.2em; margin-bottom: .3em;" class="navbar-brand mr-0" href="/logout"><button type="button"
+                        class="btn btn-outline-danger btn-sm">Log Out</button>
+                </a>
+                {% else %}
+
+                {% block leftbtn %}
+                  
+                {% endblock leftbtn %}
+
+
+
+                {% endif %}
+            </div>
+
+            {% block navbottombtn %}
+
+            {% endblock navbottombtn %}
+            {% if request.user.is_authenticated %}
+            <div class="navbar-nav ml-auto">
+
+
+
+
+
+
+
+                <a style="margin-right: 0rem;" class="navbar-brand" href="{% url 'userprofile' request.user %}">
+
+                    <img style="height: 2em;
+                    margin-bottom: .3em;
+                " class="profile_dp"
+                        src="{{ request.user.profile_set.first.userImage.url }}"
+                        alt="">
+
+
+
+
+
+
+                </a>
+            </div>
+            {% else %}
+            <div class="navbar-nav ml-auto">
+                <a style="margin-right: 0rem;" class="navbar-brand" href="">
+
+                    <img style="height: 2em;
+                    margin-bottom: .3em;
+                " class="profile_dp"
+                        src="https://img.icons8.com/cotton/50/000000/user-male-circle.png"
+                        alt="">
+
+
+
+                </a>
+
+
+
+
+
+            </div>
+
+            {% endif %}
+        </nav>
+        
+    </body>
+    
+        <script>
+         setTimeout(function () {
+  $("html").addClass("loader");
+  $("html").removeClass("loader");
+  $(".loader").css({ display: "none" });
+  $(".text").animate({ opacity: "1" });
+}, 3500);
+
+        </script>
+    {% block js %}
+
+
+    {% endblock js %}
+
+    
+</html>

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+
+{% block modals %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1"
+    aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/login">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control"
+                            id="username" name="username"
+                            aria-describedby="emailHelp" placeholder="username"
+                            required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control"
+                            id="password" name="password" placeholder="*****"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock modals %}
+
+
+<!--SignUP-->
+{% block body %}
+
+<!--svg start-->
+<div style="justify-content: center;" class="container">
+<img  src="https://i.imgur.com/4FQbo4Z.png" class="img-fluid" alt="Responsive image">
+</div>
+
+
+
+
+
+
+<!--svg end-->
+
+
+
+
+
+
+
+
+<div style="margin-bottom: 5em;" class="container mt-4">
+    <h3><strong style="color:#3fc1c9 ;">Create </strong>Account</h3>
+    <hr>
+    {% if msg == 'Passwords Do not Match' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{msg}} !!</strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    {% endif %}
+    {% if msg == 'Account Created Successfully' %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>{{msg}} !!</strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+
+    <form method="POST" action="/signup">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleFormControlInput1"><strong style="color:#3fc1c9 ;">Email </strong>Address</label>
+            <input type="email" class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com" name="email" required>
+        </div>
+        <div style="width: 70vw;" class="form-group">
+            <label for="name"><strong style="color:#3fc1c9 ;">Name </strong></label>
+            <input type="text" class="form-control"
+                id="name"
+                placeholder="Your name" name="name" required>
+        </div>
+        <div style="width: 70vw;" class="form-group">
+            <label for="username"><strong style="color:#3fc1c9 ;">User</strong>name</label>
+            <input type="text" class="form-control"
+                id="username"
+                placeholder="set Unique Username" name="username" required>
+        </div>
+
+
+        <div style="width: 60vw;" class="form-group">
+            <label for="password"><strong style="color:#3fc1c9 ;">Password</strong></label>
+            <input type="password" class="form-control"
+                id="password"
+                placeholder="*******" name="password" required>
+        </div>
+        <div style="width: 60vw;" class="form-group">
+            <label for="confirm_password"><strong style="color:#3fc1c9 ;">Confirm</strong> Password</label>
+            <input type="password" class="form-control"
+                id="confirm_password"
+                placeholder="*******" name="confirm_password" required>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+    </form>
+</div>
+
+<div style="margin-bottom: 10%;" class="container">
+    <div class="media">
+        <img style="height:10em;" src="https://i.imgur.com/t81Henw.png" class="align-self-center mr-3" alt="...">
+        <div class="media-body">
+          <h5 class="mt-0"><strong style="color:#3fc1c9 ;">Terms</strong> And Conditions</h5>
+          <p>Welcome to <strong style="color:#3fc1c9 ;">Socialite!!</strong>
+            
+            We don’t sell your personal data to advertisers, and we <strong style="color:#3fc1c9 ;">don’t share information</strong> that directly identifies you (such as your name, email address or other contact information) with Others.People are different. We want to strengthen your relationships through shared experiences you actually care about. So we build systems that try to understand who and what you and others care about, and use that information to help you create, find, join, and share in experiences that matter to you. Part of that is highlighting content, features, offers, and accounts you might be interested in, and offering ways for you to experience <strong style="color:#3fc1c9 ;">Socialite</strong>, based on things you and others do on and off <strong style="color:#3fc1c9 ;">Socialite</strong>.
+
+            
+            </p>
+          
+        </div>
+      </div>
+    </div>
+{% endblock body %}
+
+
+{% block leftbtn %}
+<!-- Button trigger modal -->
+
+                
+                  
+                
+    <div class="navbar-brand">
+        <button style="margin-top: -.4em; margin-bottom: .3em;"  type="button" class="btn btn-primary  " data-toggle="modal"
+            data-target="#loginModal">
+            Login
+        </button>
+    </div>
+    
+    
+
+
+
+{% endblock leftbtn %}
+

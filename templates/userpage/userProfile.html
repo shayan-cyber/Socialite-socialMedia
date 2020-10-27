@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+{% block css %}
+#dp{
+height:9em;
+margin-top:1em;
+border-radius: 200px 200px 200px 200px;
+-moz-border-radius: 200px 200px 200px 200px;
+-webkit-border-radius: 200px 200px 200px 200px;
+border: 0px solid #000000;
+
+}
+
+
+
+/* button Custom */
+
+
+/* button Custom */
+
+
+.text-center {
+text-align: center;
+}
+.text-large {
+font-size: 1.5em;
+}
+.social-button {
+display: inline-block;
+border-radius: 50%;
+background-color: #b6f3fe;
+
+color: #fff;
+border: 0 none;
+padding: 0;
+text-align: center;
+width: 2.5em;
+height: 2.5em;
+line-height: 2.5em;
+position: relative;
+-webkit-transition: all 0.25s ease-in-out;
+transition: all 0.25s ease-in-out;
+}
+.social-button:hover {
+background-color: #b0f2fe;
+color: #fff;
+}
+.social-button:hover:before {
+-webkit-animation: social-button-beat 1.5s ease-out infinite;
+animation: social-button-beat 1.5s ease-out infinite;
+}
+.social-button:hover:after {
+-webkit-animation: social-button-beat 1.5s ease-out 0.4s infinite;
+animation: social-button-beat 1.5s ease-out 0.4s infinite;
+}
+.social-button:before,
+.social-button:after {
+content: "";
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+z-index: -1;
+background-color: #b0f2fe;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+opacity: 0;
+-webkit-transition: all 0.25s ease-in-out;
+transition: all 0.25s ease-in-out;
+}
+@-webkit-keyframes social-button-beat {
+0% {
+opacity: 0.8;
+-webkit-transform: scale(1);
+transform: scale(1);
+}
+70% {
+opacity: 0;
+-webkit-transform: scale(1.5);
+transform: scale(1.5);
+}
+100% {
+opacity: 0;
+}
+}
+@keyframes social-button-beat {
+0% {
+opacity: 0.8;
+-webkit-transform: scale(1);
+transform: scale(1);
+}
+70% {
+opacity: 0;
+-webkit-transform: scale(1.5);
+transform: scale(1.5);
+}
+100% {
+opacity: 0;
+}
+}
+
+
+/* nots */
+.ring-container {
+  position: relative;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top:5px;
+
+  left: 8px;
+}
+
+.ringring {
+  border: 3px solid red;
+  -webkit-border-radius: 30px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 3px;
+  
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0
+}
+@-webkit-keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+  
+
+{% endblock css %}
+
+{% block modals %}
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="postModal" tabindex="-1"
+    aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel">Post Content</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/userpage/post" method="POST"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="image">Upload Image</label>
+                        <input type="file" class="form-control-file"
+                            id="filesToUpload" name='image' required>
+                            <output id="filesInfo"></output>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="captions">Captions:</label>
+                        <textarea class="form-control"
+                            id="captions" rows="3" name="captions" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--profile change modal-->
+
+<!-- Modal -->
+<div class="modal fade" id="profile_change_Modal" tabindex="-1" aria-labelledby="profile_change_ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profile_change_ModalLabel">Profile <strong style="color:#3fc1c9 ;">Update </strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form enctype="multipart/form-data" method="POST" action="/userpage/profile_change">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="image">Change <strong style="color:#3fc1c9 ;">DP </strong></label>
+            <input type="file" class="form-control-file"
+                id="filesToUpload1" name='image' >
+                <output id="filesInfo1"></output>
+        
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="exampleInputEmail1"> <strong style="color:#3fc1c9 ;">Bio </strong></label>
+            <input type="text" class="form-control" name = 'bio_' id="exampleInputEmail1" aria-describedby="emailHelp">
+            
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1"> <strong style="color:#3fc1c9 ;">Website/Link </strong></label>
+            <input name="link_" type="url" class="form-control" id="exampleInputPassword1">
+          </div>
+          
+          <button type="submit" class="btn btn-outline-primary btn-sm">Save Changes <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/>
+            <path fill-rule="evenodd" d="M15.854 10.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708l1.146 1.147 2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          </svg></button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+{% endblock modals %}
+
+
+{% block body %}
+
+
+
+
+<div style="margin-top: 5%;" class="container">
+    <div style="border-bottom: 2px solid #000000;" class="media">
+        <img id="dp" src="{{profile.userImage.url}}" class="align-self-start
+            mr-3" alt="...">
+        <div style="margin-left: 1em;
+            margin-top: 1em;" class="media-body">
+            <h4 class="mt-0">{{profile.user.username}} 
+          <span>
+            
+          </span>
+          </h4>
+            <hr>
+            <p style="font-size: .8em;"><strong style="margin-left: .5em;">Followers: </strong>{{followers_no}} <strong style="margin-left: .5em;">
+                    Following:</strong> {{followings_no}}</p>
+            <hr>
+            <p><strong>{{profile.bio}}</strong></p>
+            <hr>
+            {% if profile.connection %}
+              
+            
+            <small><strong style="color:#3fc1c9 ;">Link :</strong></small>
+            <br>
+            <a style="text-decoration: none; margin-bottom: 1em; font-size: .7em; " href="{{profile.connection}}">{{profile.connection|truncatechars:30}}</a>
+            <br>
+            <br>
+            {% endif %}
+            
+            <div class="btn-group mb-2" role="group" aria-label="Basic example">
+                
+              
+                {% if request.user != profile.user %}
+                {% if is_following %}
+                  
+                
+                
+                <a style="text-decoration: none;" href="{% url 'follow' profile.user.username %}" role="button" id='follow' class="btn btn-outline-primary btn-sm">Unfollow</a>
+                {% else %}
+                <a style="text-decoration: none;" href="{% url 'follow' profile.user.username %}" role="button" id='follow' class="btn btn-outline-primary btn-sm">Follow</a>
+
+                {% endif %}
+                
+                <a style="text-decoration: none;" href="{% url 'talk' profile.user %}"><button type="button" class="btn btn-outline-info btn-sm ml-2">Message <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                </svg></button></a>
+                {% endif %}
+                {% if request.user == profile.user %}
+              
+            
+            <button type="button" class="btn btn-outline-dark btn-sm " data-toggle="modal" data-target="#profile_change_Modal">
+              
+            Edit Profile <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tools" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M0 1l1-1 3.081 2.2a1 1 0 0 1 .419.815v.07a1 1 0 0 0 .293.708L10.5 9.5l.914-.305a1 1 0 0 1 1.023.242l3.356 3.356a1 1 0 0 1 0 1.414l-1.586 1.586a1 1 0 0 1-1.414 0l-3.356-3.356a1 1 0 0 1-.242-1.023L9.5 10.5 3.793 4.793a1 1 0 0 0-.707-.293h-.071a1 1 0 0 1-.814-.419L0 1zm11.354 9.646a.5.5 0 0 0-.708.708l3 3a.5.5 0 0 0 .708-.708l-3-3z"/>
+              <path fill-rule="evenodd" d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+              </svg>
+            </button>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div style="margin-bottom: 10%;" class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 mt-2">
+
+        {% for j in posts %}
+
+
+
+        
+
+        <div class="col mb-4">
+            <div class="card h-100">
+              
+              <a href="{{j.image.url}}" data-title="{{j.caption}}" data-toggle="lightbox" data-gallery="mixedgallery" ><img  style="height: 20em;" src="{{j.image.url}}"
+                    class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                  <p><small>{{j.date.date}}</small></p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+{% endblock body %}
+{% block navbottombtn %}
+<!-- Button trigger modal -->
+
+
+<div class="navbar-nav mx-auto">
+  <div style="margin-top: -1em;" class="text-center text-large">
+    <button type="button" class="social-button" data-toggle="modal"
+      data-target="#postModal">
+      <i class="fa fa-plus-circle" style="font-size:2.5em;color:#638dd1"></i>
+    </button>
+  
+  </div>
+  </div>
+{% endblock navbottombtn %}
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<script>$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+  event.preventDefault();
+  $(this).ekkoLightbox();
+});
+</script>
+
+
+
+
+<script>
+  //folloW button
+  $('#follow').click(function(e){
+    e.preventDefault();
+    var href = this.href;
+
+    console.log(href);
+    $.ajax({
+      url: href,
+      success: function(response){
+        if(response['following']){
+          $('#follow').html("Unfollow")
+
+
+        }
+        else{
+          $('#follow').html("Follow")
+
+        }
+      },
+      error: function(e){
+        alert('Something Went Wrong !!')
+      }
+    })
+    
+
+  })
+</script>
+<script>
+  //show image before upload
+  function fileSelect(evt) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        var files = evt.target.files;
+ 
+        var result = '';
+        var file;
+        for (var i = 0; file = files[i]; i++) {
+            // if the file is not an image, continue
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+ 
+            reader = new FileReader();
+            reader.onload = (function (tFile) {
+                return function (evt) {
+                    var div = document.createElement('div');
+                    div.innerHTML = '<img style="width: 200px;max-height:400px ; margin-top:2em;" src="' + evt.target.result + '" />';
+                    document.getElementById('filesInfo').appendChild(div);
+                };
+            }(file));
+            reader.readAsDataURL(file);
+        }
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+}
+ 
+document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
+</script>
+<script>
+  //show image before upload
+  function fileSelect(evt) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        var files = evt.target.files;
+ 
+        var result = '';
+        var file;
+        for (var i = 0; file = files[i]; i++) {
+            // if the file is not an image, continue
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+ 
+            reader = new FileReader();
+            reader.onload = (function (tFile) {
+                return function (evt) {
+                    var div = document.createElement('div');
+                    div.innerHTML = '<img style="width: 200px;max-height:400px ; margin-top:2em;" src="' + evt.target.result + '" />';
+                    document.getElementById('filesInfo1').appendChild(div);
+                };
+            }(file));
+            reader.readAsDataURL(file);
+        }
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+}
+ 
+document.getElementById('filesToUpload1').addEventListener('change', fileSelect, false);
+</script>
+  
+{% endblock js %}

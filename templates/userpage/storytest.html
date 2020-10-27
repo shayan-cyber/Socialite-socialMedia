@@ -1,0 +1,84 @@
+
+{% load static %}
+{% load humanize %}
+
+<html>
+  <head>
+    <title>zuck.js</title>
+
+    <link rel="icon" href="ICON.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+
+    <!-- demo styles -->
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/demo/style.css' %}">
+
+    <!-- lib styles -->
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/zuck.min.css' %}">
+    
+    <!-- lib skins -->
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/snapgram.css' %}">
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/vemdezap.css' %}">
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/facesnap.css' %}">
+    <link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/snapssenger.css' %}">
+  </head>
+
+  <body>
+    <h1 id="header">&nbsp;</h1>
+
+    <a href="https://ramon.codes/projects/zuck.js" target="_blank" class="disclaimer">
+      <img src="ICON.png" alt="zuck.js logo" />
+
+      <p>This a demonstration of <strong>zuck.js</strong> javascript library.</p>
+      <p>Not associated with Facebook, Instagram, WhatsApp or Snapchat.</p>
+    </a>
+
+    <div id="stories" class="storiesWrapper"></div>
+
+    <div class="skin">
+      Choose your theme:
+
+      <select id="skin" onchange="changeSkin(this.options[this.selectedIndex].value);">
+        <option value="Snapgram">Snapgram (without fullscreen)</option>
+        <option value="FaceSnap">FaceSnap (with fullscreen)</option>
+        <option value="VemDeZAP">VemDeZAP (timeline + arrows)</option>
+        <option value="Snapssenger">Snapssenger (with previews)</option>
+      </select>
+    </div>
+
+    <script src="{% static 'userpage/zuck.js-master/dist/zuck.min.js' %}"></script>
+    <script src="{% static 'userpage/zuck.js-master/demo/script.js' %}"></script>
+
+    <script>
+      var currentSkin = getCurrentSkin();
+      var stories = new Zuck('stories', {
+        backNative: true,
+        previousTap: true,
+        skin: currentSkin['name'],
+        autoFullScreen: currentSkin['params']['autoFullScreen'],
+        avatars: currentSkin['params']['avatars'],
+        paginationArrows: currentSkin['params']['paginationArrows'],
+        list: currentSkin['params']['list'],
+        cubeEffect: currentSkin['params']['cubeEffect'],
+        localStorage: true,
+        stories: [
+           
+          {% for i in stories %}
+          Zuck.buildTimelineItem(
+            "{{i.user}}",
+            "{{i.user.profile_set.first.userImage.url}}",
+            "{{i.user}}",
+            "",
+            timestamp(),
+            [
+              ["{{i.pk}}", "photo", 4, "{{i.image.url}}", "{{i.image.url}}", '', false, false, timestamp()],
+              ["gorillaz-2", "photo", 3, "https://raw.githubusercontent.com/ramon82/assets/master/zuck.js/stories/5.jpg", "https://raw.githubusercontent.com/ramon82/assets/master/zuck.js/stories/5.jpg", '', false, false, timestamp()],
+            ]
+          ),{% endfor %}
+          
+          
+          
+        ]
+      });
+    </script>
+  </body>
+</html>

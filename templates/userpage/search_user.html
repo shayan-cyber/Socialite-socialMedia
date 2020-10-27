@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+  
+<div >
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h4 class="border-bottom border-gray pb-2 mb-0">Search <strong style="color:#3fc1c9 ;">Results :</strong></h4>
+
+
+    {% for i in object_list  %}
+      
+    
+    <div class="media text-muted pt-3">
+
+       <a style="text-decoration: none;" href="{% url 'userprofile' i.username  %}"> <img style="height: 3.2em; margin-bottom: .5em;" class="bd-placeholder-img mr-2 rounded" src="{{i.profile_set.first.userImage.url}}" alt="">
+      
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">@{{i.username}}</strong>
+          <a href="{% url 'userprofile' i.username  %}">Visit</a>
+        </div>
+        <span class="d-block">{{i.first_name}}</span>
+      </div></a>
+    </div>
+    {% endfor %}
+    
+    
+    
+  </div>
+</div>
+{% endblock body %}

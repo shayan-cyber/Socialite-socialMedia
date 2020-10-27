@@ -1,0 +1,1234 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/demo/style.css' %}">
+
+<!-- lib styles -->
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/zuck.min.css' %}">
+
+<!-- lib skins -->
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/snapgram.css' %}">
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/vemdezap.css' %}">
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/facesnap.css' %}">
+<link rel="stylesheet" href="{% static 'userpage/zuck.js-master/dist/skins/snapssenger.css' %}">
+  
+{% endblock head %}
+
+
+{% block css %}
+
+
+
+
+/* button Custom */
+
+
+.text-center {
+text-align: center;
+}
+.text-large {
+font-size: 1.5em;
+}
+.social-button {
+display: inline-block;
+border-radius: 50%;
+background-color: #b6f3fe;
+
+color: #fff;
+border: 0 none;
+padding: 0;
+text-align: center;
+width: 2.5em;
+height: 2.5em;
+line-height: 2.5em;
+position: relative;
+-webkit-transition: all 0.25s ease-in-out;
+transition: all 0.25s ease-in-out;
+}
+.social-button:hover {
+background-color: #b0f2fe;
+color: #fff;
+}
+.social-button:hover:before {
+-webkit-animation: social-button-beat 1.5s ease-out infinite;
+animation: social-button-beat 1.5s ease-out infinite;
+}
+.social-button:hover:after {
+-webkit-animation: social-button-beat 1.5s ease-out 0.4s infinite;
+animation: social-button-beat 1.5s ease-out 0.4s infinite;
+}
+.social-button:before,
+.social-button:after {
+content: "";
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+z-index: -1;
+background-color: #b0f2fe;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+opacity: 0;
+-webkit-transition: all 0.25s ease-in-out;
+transition: all 0.25s ease-in-out;
+}
+@-webkit-keyframes social-button-beat {
+0% {
+opacity: 0.8;
+-webkit-transform: scale(1);
+transform: scale(1);
+}
+70% {
+opacity: 0;
+-webkit-transform: scale(1.5);
+transform: scale(1.5);
+}
+100% {
+opacity: 0;
+}
+}
+@keyframes social-button-beat {
+0% {
+opacity: 0.8;
+-webkit-transform: scale(1);
+transform: scale(1);
+}
+70% {
+opacity: 0;
+-webkit-transform: scale(1.5);
+transform: scale(1.5);
+}
+100% {
+opacity: 0;
+}
+}
+
+
+/* lazy-load */
+img {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+img[data-src] {
+	opacity: 0;
+}
+
+/*scroll to top */
+#scroll {
+  position:fixed;
+  right:10px;
+  bottom:50px;
+  cursor:pointer;
+  width:40px;
+  height:40px;
+  z-index: 6;
+  background-color:#3498db;
+  text-indent:-9999px;
+  display:none;
+  -webkit-border-radius:60px;
+  -moz-border-radius:60px;
+  border-radius:60px
+}
+#scroll span {
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin-left:-8px;
+  margin-top:-12px;
+  height:0;
+  width:0;
+  border:8px solid transparent;
+  border-bottom-color:#ffffff;
+}
+#scroll:hover {
+  background-color:#e74c3c;
+  opacity:1;filter:"alpha(opacity=100)";
+  -ms-filter:"alpha(opacity=100)";
+}
+
+/* nots */
+.ring-container {
+  position: relative;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top:5px;
+
+  left: 8px;
+}
+
+.ringring {
+  border: 3px solid red;
+  -webkit-border-radius: 30px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 3px;
+  
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0
+}
+@-webkit-keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+/*profiles*/
+#cards-container {
+  overflow: hidden;
+  margin: 20px;
+}
+
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 99999px;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background: #fff;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  width: 235px;
+  margin: 15px 7.5px;
+}
+
+.card:hover {
+  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card .img {
+  max-width: 220px;
+  height: 220px;
+  display: inline-block;
+}
+
+#slide-left-container,
+#slide-right-container {
+  display: none;
+}
+
+#slide-left-container.active,
+#slide-right-container.active {
+  display: block;
+  cursor: pointer;
+}
+
+.slide-left,
+.slide-right {
+  
+  border-style: solid;
+  height: 20px;
+  width: 20px;
+  margin-top: 30%;
+}
+
+.slide-left {
+  border-width: 4px 0 0 4px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  margin-left: 40%;
+}
+
+.slide-right {
+  border-width: 4px 4px 0 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 22%;
+}
+
+
+
+
+
+{% endblock css %}
+
+
+{% block story %}
+
+
+  <center><button style="margin-bottom: -1.8em;height: 3.3em; margin-right: 5em; border-radius: 30px 30px 30px 30px;" class="btn btn-primary btn-sm " type="button" data-toggle="collapse" data-target="#storycollapse" aria-expanded="false" aria-controls="storycollapse">
+     <small style="font-size: xx-small;">Story</small><br>
+    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>
+  </button></center>
+  
+{% endblock story %}
+
+
+
+
+
+
+
+
+{% block modals %}
+
+<!--Stories Modal-->
+
+
+<div class="modal fade" id="story_addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="story_addModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="story_addModalLabel">Add Story</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/userpage/story" method="POST"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="image">Upload Image</label>
+          <input type="file" class="form-control-file"
+            id="filesToUpload2" multiple="multiple" name='image' required>
+            <output id="filesInfo2"></output>
+        </div>
+        
+      
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="postModal" tabindex="-1"
+  aria-labelledby="postModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="postModalLabel">Post Content</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/userpage/post" method="POST"
+          enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="image">Upload Image</label>
+            <input type="file" class="form-control-file"
+              id="filesToUpload" multiple="multiple" name='image' required>
+              <output id="filesInfo"></output>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="captions">Captions:</label>
+            <textarea class="form-control"
+              id="captions" rows="3" name="captions" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--chatlistmodal-->
+<!-- Modal -->
+<div class="modal fade" id="chatmodal" tabindex="-1" aria-labelledby="chatmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chatmodalLabel"><strong style="color:#3fc1c9 ;">Your </strong>Chats</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div style="max-height: 240px;
+      overflow-y: scroll;" class="modal-body">
+        <div class=" p-3 bg-white rounded shadow-sm">
+          {% for room in chatrooms  %}
+          
+            
+         {% for prof in profs %}
+           
+         
+            
+         {% if forloop.revcounter0 == forloop.parentloop.revcounter0 %}
+         <a style="text-decoration: none;" href="{% url 'talk' prof.user %}">
+
+          
+          <div style="background: #e9ecef; height: 4em; border-radius: 8px 8px 8px 8px;"  class="media text-muted pt-3">
+            <img style="height: 3.2em; margin-right: .5em;" src="{{prof.userImage.url}}" class="profile_dp" alt="...">
+            <!--<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>-->
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+              <strong class="d-block text-gray-dark">{{prof.user.username}}</strong>{{room.chat_set.last}}
+              <p style="font-weight: lighter; opacity: .5;" class="mt-2 mb-1 mr-1"><small class="text-muted">{{room.chat_set.last.time|naturaltime}}</small></p>
+              
+            </p>
+          </div></a>
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+          
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock modals %}
+
+
+
+
+{% block chatbutton %}
+<div class="ring-container">
+  <div class="ringring"></div>
+  <div class="circle"></div>
+</div>
+<a  data-toggle="modal" data-target="#chatmodal" style="margin-top: -.5em; color: #3fc1c9; margin-left: -1em; " class="navbar-brand mr-auto" href="#chatmodal"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></a>
+  
+{% endblock chatbutton %}
+{% block body %}
+<!--stories-->
+<div style="width: 100%;" class="container">
+                
+  <div class="collapse" id="storycollapse">
+    <div style="width: 100%; margin: 0;" class="card card-body">
+      <div class="media">
+        
+        <div style="width: 100%;" class="media-body">
+          
+          <div id="stories" class="storiesWrapper">
+            <div style="margin-left: -5em; " class="story"></div>
+            <button style="margin-top: 1em; margin-bottom: 2em;" type="button"  data-toggle="modal" data-target="#story_addModal" class="btn btn-outline-info"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg></button>
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<a href="#" id="scroll" style="display: none;"><span></span></a><a href="#" id="scroll" style="display: none;"><span></span></a>
+<center><a id="refresh" style="border-radius: 30px 30px 30px 30px; padding-top: .7em; padding-bottom: .7em; " type="button" class="btn btn-outline-info mt-3"  href="/userpage">
+  <img  style="height: 2em;width:2em;" src="data:image/svg+xml;base64,PHN2ZyBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgaWQ9Il94MzNfNV9sb2FkaW5nIj48Zz48Zz48cGF0aCBkPSJtMzA4Ljk2OSA2Ni4xMTVjLTEyLjU2MyAwLTIyLjM3Mi0xMC4yNDctMjIuMzcyLTIyLjM3MiAwLTEzLjE5MSAxMS40ODYtMjMuNTY3IDI0LjU3NS0yMi4yNiAxMS42MjkgMS4yNCAyMC4xNjkgMTAuODQzIDIwLjE2OSAyMi4yNiAwIDEyLjEzLTkuODA0IDIyLjM3Mi0yMi4zNzIgMjIuMzcyeiIgZmlsbD0iI2M0ZTJmZiIvPjwvZz48L2c+PHBhdGggZD0ibTQ1OS42MTEgMjgzLjY3MmguMDExYzEuMTYzLTEyLjI5NCAxMi4wODEtMjEuMzIgMjQuMzg1LTIwLjE1OCAxMi4yOTQgMS4xNjMgMjEuMzIxIDEyLjA4MiAyMC4xNTggMjQuMzg2LTEuMTA4IDExLjU3Ny0xMC44NTEgMjAuMjU3LTIyLjI1IDIwLjI1Ny0xMy4yODMuMDAxLTIzLjU0MS0xMS40MDItMjIuMzA0LTI0LjQ4NXoiIGZpbGw9IiMyNmE2ZmUiLz48cGF0aCBkPSJtNDUzLjYwNCAyMTEuMTUzYy0zLjItMTEuOTM1IDMuODgxLTI0LjE5NSAxNS44MTctMjcuMzk1IDExLjkzNS0zLjE5OSAyNC4yMDcgMy44ODIgMjcuNDA2IDE1LjgxOCAzLjIgMTEuOTM1LTMuODkyIDI0LjIwNi0xNS44MTcgMjcuNDA2LTEuOTQ3LjUxNS0zLjg5My43Ni01LjgwNi43Ni05Ljg4OCAwLTE4LjkyNy02LjU4OC0yMS42LTE2LjU4OXoiIGZpbGw9IiM2MGI3ZmYiLz48cGF0aCBkPSJtNDIyLjUyOSAxNDUuNDU4Yy03LjE5Mi0xMC4wNTYtNC44NzYtMjQuMDI4IDUuMTY4LTMxLjIyIDEwLjA0Ni03LjE4MSAyNC4wMTYtNC44NzcgMzEuMjA5IDUuMTc5IDcuMTkyIDEwLjA0NCA0Ljg3NiAyNC4wMTYtNS4xNjggMzEuMjA4LTMuOTQ5IDIuODE5LTguNDkgNC4xODQtMTIuOTk4IDQuMTg0LTYuOTggMC0xMy44NDgtMy4yNTUtMTguMjExLTkuMzUxeiIgZmlsbD0iIzhhYzlmZSIvPjxwYXRoIGQ9Im0zNjQuMzE3IDYzLjY2NmM2LjkwMi0xMC4yNDcgMjAuODA3LTEyLjk0MyAzMS4wNTMtNi4wNDEgMTAuMjQ1IDYuOTEzIDEyLjk1MiAyMC44MTggNi4wNCAzMS4wNTItNC4zMTcgNi40MS0xMS4zNzYgOS44NjYtMTguNTY4IDkuODY2LTE3Ljc2NiAwLTI4LjU4Mi0xOS45NzItMTguNTI1LTM0Ljg3N3oiIGZpbGw9IiNiM2RhZmUiLz48Zz48cGF0aCBkPSJtNDYwLjAwMiAzODUuODc5Yy0xMi4zMSAwLTIyLjM3Mi0xMC4wMTQtMjIuMzcyLTIyLjM3MiAwLTEzLjIxNyAxMS40NjctMjMuNTYgMjQuNTc2LTIyLjI2MSAxMS44MzEgMS4zIDIwLjE2OCAxMC45OTEgMjAuMTY4IDIyLjI2MSAwIDEyLjA1My05Ljc3NSAyMi4zNzItMjIuMzcyIDIyLjM3MnoiIGZpbGw9IiMwNTkzZmMiLz48L2c+PHBhdGggZD0ibTQzMC43OTYgNDA2LjE5MmMtOC44ODQtNy4zMDUtMjEuODU2LTYuNjc3LTMwIDEuNDQ1LTM2LjcxOSAzNi42MTktODYuMTY2IDU4LjA3Ni0xMzguNDczIDU5LjUzNy0xMTIuNTIyIDMuMTQzLTIwNi42MjItODUuODQzLTIwOS43NjUtMTk4LjM2NS0yLjIzMy03OS45MjYgNDIuNDY3LTE1Mi43OTQgMTExLjkxNi0xODcuOTNsNy4xODkgMjkuNDczYzEuNjU5IDYuODA0IDEwLjEzOCA5LjE1MSAxNS4wNiA0LjE2OWw2OC40NDUtNjkuMjg0YzQuNjgzLTQuNzQgMi43MjgtMTIuNzUyLTMuNjExLTE0LjgwM2wtOTIuNjYtMjkuOTg2Yy02LjY2My0yLjE1Ni0xMy4xMDkgMy44MzEtMTEuNDQ5IDEwLjYzNWw2LjE5MSAyNS4zODFjLTg5Ljk5MiA0MC44ODQtMTQ4LjYyOCAxMzIuNjIxLTE0NS44MDggMjMzLjU5NCAzLjg0MSAxMzcuNTA2IDExOC4yMjMgMjQ1LjY4NCAyNTUuNzQxIDI0MS44NDIgNjMuNzYzLTEuNzgxIDEyNC4wMzgtMjcuOTMxIDE2OC43OTYtNzIuNTU4IDkuMzc1LTkuMzQ3IDguNjU0LTI0Ljc0Mi0xLjU3Mi0zMy4xNXoiIGZpbGw9IiMwMTgyZmMiLz48cGF0aCBkPSJtNDgxLjQ0MSAyNjMuNDIzYzIuMTY0IDMuODQxIDMuMjIzIDguMzU3IDIuNzc3IDEzLjA3OS0xLjA5NCAxMS40MzUtMTAuNjE3IDIwLjAyOC0yMS44MzUgMjAuMjM4IDMuODEgNi43NjYgMTEuMDUyIDExLjQxOCAxOS41MzMgMTEuNDE4IDExLjM5OSAwIDIxLjE0Mi04LjY4IDIyLjI1LTIwLjI1NyAxLjI1MS0xMy4yMzUtOS4yNjMtMjQuNzM5LTIyLjcyNS0yNC40Nzh6IiBmaWxsPSIjMDU5M2ZjIi8+PHBhdGggZD0ibTQ5Ni44MjcgMTk5LjU3NmMtMi43Mi0xMC4xNDgtMTEuOTk5LTE2Ljc4Mi0yMi4wNTQtMTYuNTc3IDguMjU4IDE0LjcwMy0yLjExOSAzMi45ODktMTkuMDY1IDMzLjMzIDMuOTQ0IDcuMDM0IDExLjQzNyAxMS40MTMgMTkuNDk2IDExLjQxMyAxLjkxMyAwIDMuODU5LS4yNDYgNS44MDYtLjc2IDExLjkyNC0zLjIgMTkuMDE2LTE1LjQ3MSAxNS44MTctMjcuNDA2eiIgZmlsbD0iIzI2YTZmZSIvPjxwYXRoIGQ9Im00NTguOTA3IDExOS40MTdjLTQuNDYtNi4yMzUtMTEuNTI1LTkuNDgyLTE4LjY0NS05LjM0NCA4LjMxNSAxNC43MzUtMi4yMTggMzIuOTk4LTE5LjAzOSAzMy4zMjIgNC4xMTkgNy4zMTYgMTEuNjcxIDExLjQxNSAxOS41MTcgMTEuNDE1IDE4LjA0NC0uMDAxIDI4Ljc5NS0yMC41NSAxOC4xNjctMzUuMzkzeiIgZmlsbD0iIzYwYjdmZiIvPjxwYXRoIGQ9Im0zOTUuMzcgNTcuNjI1Yy0zLjk3OS0yLjY4LTguNTEtMy44OTYtMTIuOTY4LTMuODAxIDQuMDA2IDcuMTQgMy45NTMgMTYuMjEyLS45NCAyMy40NTQtNC4yMTYgNi4yNi0xMS4wNDkgOS42OTQtMTguMDY1IDkuODUxIDMuNzM0IDYuNjI4IDEwLjc1MyAxMS40MTQgMTkuNDQ0IDExLjQxNCA3LjE5MiAwIDE0LjI1MS0zLjQ1NiAxOC41NjgtOS44NjYgNi45MTQtMTAuMjM0IDQuMjA3LTI0LjEzOS02LjAzOS0zMS4wNTJ6IiBmaWxsPSIjOGFjOWZlIi8+PHBhdGggZD0ibTQ2Mi4yMDcgMzQxLjI0NmMtLjg5Ny0uMDg5LTEuNzg0LS4xMTgtMi42NjItLjEwMSAxLjg0IDMuMjY5IDIuODgyIDcuMDEzIDIuODgyIDEwLjk2MyAwIDExLjkwNy05LjU0MiAyMi4xMTQtMjEuOTE2IDIyLjM2IDMuODQ2IDYuODA5IDExLjE1IDExLjQxIDE5LjQ5MiAxMS40MSAxMi41OTYgMCAyMi4zNzItMTAuMzE5IDIyLjM3Mi0yMi4zNzIgMC0xMS4yNjktOC4zMzgtMjAuOTU5LTIwLjE2OC0yMi4yNnoiIGZpbGw9IiMwMTgyZmMiLz48Zz48cGF0aCBkPSJtNDMwLjc5NiA0MDYuMTkyYy00LjQ0My0zLjY1My05LjkwNy01LjMyMi0xNS4yNzktNS4wNjIgNS4xMjYgOC41NDYgNC4wOTUgMTkuODk1LTMuNDA3IDI3LjM3Ni00NC43NTggNDQuNjI4LTEwNS4wMzMgNzAuNzc3LTE2OC43OTYgNzIuNTU4LTQwLjc2NiAxLjEzOS03OS40OTktNy41NjgtMTEzLjkyMi0yMy45NjQgMzkuMTYxIDIzLjMxNyA4NS4xOTkgMzYuMTY5IDEzNC4xNzkgMzQuODAxIDYzLjc2My0xLjc4MSAxMjQuMDM4LTI3LjkzMSAxNjguNzk2LTcyLjU1OCA5LjM3Ni05LjM0OCA4LjY1NS0yNC43NDMtMS41NzEtMzMuMTUxeiIgZmlsbD0iIzAxNzJmYiIvPjwvZz48L2c+PC9zdmc+" />
+</a></center>
+{% if following_users_posts %}
+  
+
+{% for i in following_users_posts %}
+
+
+<div style="justify-content: center;
+  display: flex; margin-bottom: 10%;" id='card{{i.id}}' class="container mt-4">
+
+  <div style="width: 85vw; -webkit-box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  -moz-box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  
+  width: 70vw;
+  height: fit-content;
+  max-width:660px;
+  " class="card mb-3">
+    {% if i.image %}
+
+
+    <div class="card-body">
+      <h5 class="card-title"><a style="text-decoration: none;" href="{% url 'userprofile' i.user %}">
+        
+        <img style="margin-left: -.5em; margin-right: .3em;" class="profile_dp" src="{{i.user.profile_set.first.userImage.url}}" alt="">
+        {{i.user}}</a></h5>
+    </div>
+    <img style="max-height: 550px;" data-src="{{i.image.url}}"
+      class="card-img-top" alt="img">
+    {% endif %}
+    <div class="card-body">
+      
+      
+      <p class="card-text">{{i.caption}}</p>
+
+
+      <p class="card-text"><small class="text-muted">{{i.date.date}}</small></p>
+      <h6 class="card-text">Liked By {% for x in i.like.user.all|slice:":2" %}
+        <a style="text-decoration: none;"  href="{% url 'userprofile' x %}">{{x.username}}</a> ,
+        
+      {% endfor %}  
+
+      {% if i.like.user.all|length > 2 %}
+        
+      
+      <div class="btn-group dropleft">
+       
+          <span style="cursor: pointer;" class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{i.like.user.all|length|add:-2 }}  Others</span>
+      
+        <div style="    z-index: 3;
+        
+        padding-bottom: 1em;" class="dropdown-menu">
+          {% for p in i.like.user.all  %}
+            
+          
+          <a style="text-decoration: none;" href="{% url 'userprofile' p %}"><div class="dropdown-item mt-3 mb-3"><img style="height: 2em;" class="profile_dp" src="{{p.profile_set.first.userImage.url}}" alt=""><span style="color: blue;margin-left: .3em;">{{p.username}}</span></div></a>
+          <hr style="width: 60%;">
+          {% endfor %}
+        </div>
+      </div>
+      
+      {% endif %}
+
+
+     </h6>
+
+      <!--like button refresh problem-->
+      
+        
+      
+      <button type="button" id="{{ i.id }}" class="btn btn-outline-primary btn-sm mt-1 like">
+        {% if i in liked_post %}
+        <a id="liked_text{{i.id}}"
+          href="{% url 'likepost' %}" style="text-decoration: none;" >Liked
+        </a>
+        {% else %}
+        <a id="liked_text{{i.id}}"
+          href="{% url 'likepost' %}" style="text-decoration: none;" >Like
+        </a>
+        
+        {% endif %}
+        <span id="sp{{i.id}}" class="badge badge-success">{{i.like.user.all|length}}</span>
+      </button>
+        
+        
+        
+      
+
+
+      <!--like button refresh problem-->
+      
+
+
+
+
+
+      
+      <button class="btn btn-outline-success btn-sm mt-1"  type="button" data-toggle="collapse" data-target="#collapseExample{{i.id}}" aria-expanded="false" aria-controls="collapseExample{{i.id}}">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-quote-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766c.087.124.163.26.227.401.428.948.393 2.377-.942 3.706a.446.446 0 0 1-.612.01.405.405 0 0 1-.011-.59c.419-.416.672-.831.809-1.22-.269.165-.588.26-.93.26C4.775 9.333 4 8.587 4 7.667 4 6.747 4.776 6 5.734 6c.271 0 .528.06.756.166l.008.004c.169.07.327.182.469.324.085.083.161.174.227.272zM11 9.073c-.269.165-.588.26-.93.26-.958 0-1.735-.746-1.735-1.666 0-.92.777-1.667 1.734-1.667.271 0 .528.06.756.166l.008.004c.17.07.327.182.469.324.085.083.161.174.227.272.087.124.164.26.228.401.428.948.392 2.377-.942 3.706a.446.446 0 0 1-.613.01.405.405 0 0 1-.011-.59c.42-.416.672-.831.81-1.22z"/>
+        </svg><span class="badge badge-success ml-1">{{i.comment_set.all|length}}</span>
+      </button>
+      
+      {% if i.user == request.user %}
+
+
+      <a class="delete" id="{{ i.id }}" href="{% url 'delpost' i.id %}"><button
+          type="button" class="btn
+          btn-outline-danger btn-sm mt-1">Delete</button></a>
+      {% endif %}
+      
+    </div>
+    <div style="width: 100%; " class="collapse" id="collapseExample{{i.id}}">
+      <div class="container" id="commentdiv">
+        <form method="POST" id ="comment{{i.id}}" action="{% url 'comment' i.id %}" style="margin-top: 1em;">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Example textarea</label>
+            <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          
+          <button type="submit" id="{{i.id}}" class="btn btn-outline-primary mb-2 submit"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-quote-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766c.087.124.163.26.227.401.428.948.393 2.377-.942 3.706a.446.446 0 0 1-.612.01.405.405 0 0 1-.011-.59c.419-.416.672-.831.809-1.22-.269.165-.588.26-.93.26C4.775 9.333 4 8.587 4 7.667 4 6.747 4.776 6 5.734 6c.271 0 .528.06.756.166l.008.004c.169.07.327.182.469.324.085.083.161.174.227.272zM11 9.073c-.269.165-.588.26-.93.26-.958 0-1.735-.746-1.735-1.666 0-.92.777-1.667 1.734-1.667.271 0 .528.06.756.166l.008.004c.17.07.327.182.469.324.085.083.161.174.227.272.087.124.164.26.228.401.428.948.392 2.377-.942 3.706a.446.446 0 0 1-.613.01.405.405 0 0 1-.011-.59c.42-.416.672-.831.81-1.22z"/>
+          </svg></button>
+        </form>
+        <ul class="nav nav-pills mt-1 mb-2">
+          <h6 class="collapse-title"><strong style="color:#3fc1c9 ;">Comments :</strong></h6><button  class="close ml-auto" type="button" data-toggle="collapse" data-target="#collapseExample{{i.id}}" aria-expanded="false" aria-controls="collapseExample{{i.id}}" ><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"/>
+          <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+        </svg></button>
+        </ul>
+      </div>
+      
+        
+      <div class="container">
+      <div style="
+      width: 95%;
+      
+      z-index: 10;
+      
+      max-height: 240px;
+      overflow-y: scroll;" class="card card-body ">
+    
+      
+        
+       
+        {% for comment_ in i.comment_set.all  %}
+        
+          
+        
+        <div class="media ">
+          <a href="{% url 'userprofile' comment_.commentor.profile_set.first  %}" style="text-decoration: none;" ><img  src="{{comment_.commentor.profile_set.first.userImage.url}}" class="mr-3 profile_dp" alt="..."></a>
+          <div style="margin-top: -.5em;" class="media-body">
+            <h5 class="mt-0">{{comment_.commentor.username}}</h5>
+            {{comment_.text}}
+            
+          </div>
+        </div>
+      
+      
+        {% endfor %}
+      
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<!--Toast-->
+
+<center>
+<div class="toast mt-2"  role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+  <div class="toast-header">
+    
+    <img style="height: 5em;" src="https://i.imgur.com/t81Henw.png" class="rounded mr-0" alt="...">
+    <strong style="color:#3fc1c9 ;" class="mr-auto">Socialite</strong>
+    <small class="text-muted">Just A Second Ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    <h6>Hey!! <strong style="color:#3fc1c9 ;" >{{request.user}}</strong>   Welcome To <strong style="color:#3fc1c9 ;" >Socialite</strong></h6>
+  </div>
+</div>
+</center>
+<!--Toast-->
+
+
+
+
+
+
+<!--New User Carousel-->
+
+<div class="container mt-3 mb-3">
+<center><div style="max-width: 400px;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img style="height: 70vh; width: 40vw;" src="https://i.imgur.com/Kxper3I.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item ">
+      <img style="height: 70vh;width: 40vw;" src="https://i.imgur.com/MgsZBZG.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item ">
+      <img style="height: 70vh;width: 40vw;" src="https://i.imgur.com/lcfUY5c.jpg" class="d-block w-100" alt="...">
+    </div>
+
+    
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div></center>
+</div>
+
+
+
+
+{% endif %}
+
+
+
+<center><h3>People You May Know
+  <br>
+  <small style="font-size: small;">Suggested By <strong style="color:#3fc1c9 ;">Socialite</strong></small>
+</h3></center>
+<!--profiles-->
+<div style="display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+-webkit-box-pack: justify;
+-ms-flex-pack: justify;
+justify-content: space-between;
+padding: 4px 16px;" class="container">
+  <div style="color: cornflowerblue;" id="slide-left-container">
+    <div style="color: cornflowerblue;"  class="slide-left">
+    </div>
+  </div>
+  <div id="cards-container">
+    <div class="cards">
+      {% for sug in suggested_profiles|slice:":10" %}
+        
+      
+      <div class="card border-primary mb-3">
+        <center><img src="{{sug.userImage.url}}" alt="Animals" style=" width:80%; padding: 1em 1em 1em 1em; border-radius: 200px 200px 200px 200px;
+          -moz-border-radius: 200px 200px 200px 200px;
+          -webkit-border-radius: 200px 200px 200px 200px;
+          border: 1.5px solid #add9fb; margin-top: 1em;"></center>
+        <div class="card-body">
+          <h4 class="card-title">
+            <center><b>{{sug.user}}</b></center>
+          </h4>
+
+          <center><p class="card-text">{{sug.bio|truncatechars:50}}</p></center>
+
+
+
+        <center>
+          <a role="button" class="btn btn-outline-info btn-sm mt-4" href="{% url 'userprofile' sug.user  %}">Visit Profile 
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-bounding-box" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+           </svg>
+          </a>
+        </center>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div style="color: cornflowerblue;" id="slide-right-container">
+    <div style="color: cornflowerblue;"  class="slide-right">
+    </div>
+  </div>
+
+</div>
+<!-- Scripts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--More Posts-->
+
+<center><h3 style="margin-bottom: 10%;">You Are All Caught Up <br>
+<small>
+  {% if posts %}
+    
+  
+  Recomended Posts{% endif %}</small></h3></center>
+
+
+
+
+{% for i in posts %}
+
+
+<div style="justify-content: center;
+  display: flex; margin-bottom: 10%;" id='card{{i.id}}' class="container mt-4">
+
+  <div style="width: 85vw; -webkit-box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  -moz-box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  box-shadow: 3px 2px 68px -5px rgba(0,0,0,0.72);
+  
+  width: 70vw;
+  height: fit-content;
+  max-width:660px;
+  " class="card mb-3">
+    {% if i.image %}
+
+
+    <div class="card-body">
+      <h5 class="card-title"><a style="text-decoration: none;" href="{% url 'userprofile' i.user %}">
+        
+        <img style="margin-left: -.5em; margin-right: .3em;" class="profile_dp" src="{{i.user.profile_set.first.userImage.url}}" alt="">
+        {{i.user}}<small style="color: black; opacity: .5; font-size: x-small;"> Recomended</small></a></h5>
+    </div>
+    <img style="max-height: 550px;" data-src="{{i.image.url}}"
+      class="card-img-top" alt="img">
+    {% endif %}
+    <div class="card-body">
+      
+      
+      <p class="card-text">{{i.caption}}</p>
+
+
+      <p class="card-text"><small class="text-muted">{{i.date.date}}</small></p>
+        
+
+      
+        
+      
+      
+       
+      
+        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg><span class="badge badge-success ml-1 mr-3">{{i.like.user.all|length }}</span>
+
+
+
+      
+      
+        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-chat-quote-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766c.087.124.163.26.227.401.428.948.393 2.377-.942 3.706a.446.446 0 0 1-.612.01.405.405 0 0 1-.011-.59c.419-.416.672-.831.809-1.22-.269.165-.588.26-.93.26C4.775 9.333 4 8.587 4 7.667 4 6.747 4.776 6 5.734 6c.271 0 .528.06.756.166l.008.004c.169.07.327.182.469.324.085.083.161.174.227.272zM11 9.073c-.269.165-.588.26-.93.26-.958 0-1.735-.746-1.735-1.666 0-.92.777-1.667 1.734-1.667.271 0 .528.06.756.166l.008.004c.17.07.327.182.469.324.085.083.161.174.227.272.087.124.164.26.228.401.428.948.392 2.377-.942 3.706a.446.446 0 0 1-.613.01.405.405 0 0 1-.011-.59c.42-.416.672-.831.81-1.22z"/>
+        </svg><span class="badge badge-success ml-1">{{i.comment_set.all|length}}</span>
+
+
+        <a href="{% url 'userprofile' i.user %}" class="btn btn-outline-info btn-sm ml-3"><strong style="margin-right: .5em;">Visit Profile</strong><svg width="1em" height="1em"  viewBox="0 0 16 16" class="bi bi-person-bounding-box" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg></a>
+      
+      
+      
+      
+    </div>
+   
+  </div>
+</div>
+{% endfor %}
+
+
+
+<!--more posts-->
+
+
+
+{% endblock body %}
+{% block navbottombtn %}
+<!-- Button trigger modal -->
+
+<div class="navbar-nav mx-auto">
+<div style="margin-top: -1em;" class="text-center text-large">
+  <button type="button" class="social-button" data-toggle="modal"
+    data-target="#postModal">
+    <i class="fa fa-plus-circle" style="font-size:2.5em;color:#638dd1"></i>
+  </button>
+
+</div>
+</div>
+{% endblock navbottombtn %}
+
+{% block js %}
+<script src="{% static 'userpage/zuck.js-master/dist/zuck.min.js' %}"></script>
+<script src="{% static 'userpage/zuck.js-master/demo/script.js' %}"></script>
+<!--comment-->
+<script type="text/javascript">
+  $(".submit").click(function(e) {
+    var ID1 = this.id
+    console.log(ID1)
+      $('#comment'+ID1).submit(function() {
+           // On form submit event
+          $.ajax({ // create an AJAX call...
+              data: $(this).serialize(), // get the form data
+              type: $(this).attr('method'), // GET or POST
+              url: $(this).attr('action'), // the file to call
+              success: function(data) { // on success..
+                  console.log('success')
+                 $('body').load('{% url 'userHome' %}').fadeOut(800).fadeIn(800);
+                 $('#everything').html(data); 
+                 
+                 //$('.dropdown-toggle').dropdown();
+                 
+                 //$('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
+                 
+                 
+              },
+              error: function(e, x, r) { // on error..
+                  console.log('error');
+                   // update the DIV
+              }
+              
+          });
+          return false;
+      });
+  });
+  </script>
+
+
+
+
+
+
+
+<script>
+  $(".delete").click(function(e){
+    var id = this.id ;//id of the delete button
+    var href = this.href;
+    console.log(href,id) //get href and id from link
+    e.preventDefault(); // dont follow link (dont reload) 
+    $.ajax({
+        url: href,
+        data:{},
+      });
+      $("#card"+id).fadeOut(1000);
+  });
+</script>
+<script>
+  //like, same Process but using ajax 
+  $(".like").click(function(e){
+    var id = this.id ;//id of the delete button
+    var href = $('.like').find('a').attr('href');
+    console.log(href,id) //get href and id from link
+    e.preventDefault(); // dont follow link (dont reload) 
+    
+    $.ajax({
+      url: href,
+      data:{'likeid':id},
+      success: function(response){
+        
+        
+        if(response.liked_track){
+          $("#liked_text"+id).html("Liked");
+          
+          
+
+        }
+        else{
+          $("#liked_text"+id).html("Like");
+          
+          
+
+        }
+        $('body').load('/userpage');
+        $('#everything').html(response);
+        
+        
+      }
+      
+     
+
+
+
+    });
+    
+    
+   
+  });
+  
+
+
+
+
+  
+</script>
+
+<script>
+//lazy-load
+
+
+[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+	img.setAttribute('src', img.getAttribute('data-src'));
+	img.onload = function() {
+		img.removeAttribute('data-src');
+	};
+});
+
+
+
+</script>
+<!--refresh button-->
+<script>
+ $("#refresh").click(function(e){
+    var id = this.id ;//id of the delete button
+    var href = this.href;
+    console.log(href,id) //get href and id from link
+    e.preventDefault(); // dont follow link (dont reload) 
+    $('body').load('{% url 'userHome' %}').fadeOut(1000).fadeIn(1000);
+    
+        
+  });
+</script>
+
+<script>
+  //scroll to top button
+  
+$(document).ready(function(){ 
+    $(window).scroll(function(){ 
+        if ($(this).scrollTop() > 100) { 
+            $('#scroll').fadeIn(); 
+        } else { 
+            $('#scroll').fadeOut(); 
+        } 
+    }); 
+    $('#scroll').click(function(){ 
+        $("html, body").animate({ scrollTop: 0 }, 600); 
+        return false; 
+    }); 
+});
+</script>
+
+<script>
+  //show image before upload
+  function fileSelect(evt) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        var files = evt.target.files;
+ 
+        var result = '';
+        var file;
+        for (var i = 0; file = files[i]; i++) {
+            // if the file is not an image, continue
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+ 
+            reader = new FileReader();
+            reader.onload = (function (tFile) {
+                return function (evt) {
+                    var div = document.createElement('div');
+                    div.innerHTML = '<img style="width: 200px;max-height:400px ; margin-top:2em;" src="' + evt.target.result + '" />';
+                    document.getElementById('filesInfo').appendChild(div);
+                };
+            }(file));
+            reader.readAsDataURL(file);
+        }
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+}
+ 
+document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
+</script>
+
+<script>
+  /**
+ * @description Change Home page slider's arrows active status
+ */
+function updateSliderArrowsStatus(
+  cardsContainer,
+  containerWidth,
+  cardCount,
+  cardWidth
+) {
+  if (
+    $(cardsContainer).scrollLeft() + containerWidth <
+    cardCount * cardWidth + 15
+  ) {
+    $("#slide-right-container").addClass("active");
+  } else {
+    $("#slide-right-container").removeClass("active");
+  }
+  if ($(cardsContainer).scrollLeft() > 0) {
+    $("#slide-left-container").addClass("active");
+  } else {
+    $("#slide-left-container").removeClass("active");
+  }
+}
+$(function() {
+  // Scroll products' slider left/right
+  let div = $("#cards-container");
+  let cardCount = $(div)
+    .find(".cards")
+    .children(".card").length;
+  let speed = 1000;
+  let containerWidth = $(".container").width();
+  let cardWidth = 250;
+
+  updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
+
+  //Remove scrollbars
+  $("#slide-right-container").click(function(e) {
+    if ($(div).scrollLeft() + containerWidth < cardCount * cardWidth) {
+      $(div).animate(
+        {
+          scrollLeft: $(div).scrollLeft() + cardWidth
+        },
+        {
+          duration: speed,
+          complete: function() {
+            setTimeout(
+              updateSliderArrowsStatus(
+                div,
+                containerWidth,
+                cardCount,
+                cardWidth
+              ),
+              1005
+            );
+          }
+        }
+      );
+    }
+    updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
+  });
+  $("#slide-left-container").click(function(e) {
+    if ($(div).scrollLeft() + containerWidth > containerWidth) {
+      $(div).animate(
+        {
+          scrollLeft: "-=" + cardWidth
+        },
+        {
+          duration: speed,
+          complete: function() {
+            setTimeout(
+              updateSliderArrowsStatus(
+                div,
+                containerWidth,
+                cardCount,
+                cardWidth
+              ),
+              1005
+            );
+          }
+        }
+      );
+    }
+    updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
+  });
+
+  // If resize action ocurred then update the container width value
+  $(window).resize(function() {
+    try {
+      containerWidth = $("#cards-container").width();
+      updateSliderArrowsStatus(div, containerWidth, cardCount, cardWidth);
+    } catch (error) {
+      console.log(
+        `Error occured while trying to get updated slider container width: 
+            ${error}`
+      );
+    }
+  });
+});
+
+</script>
+<script>
+  
+    $(document).ready(function() {
+        $(".toast").toast('show');
+    });
+
+</script>
+
+<!--story-->
+<script>
+  var currentSkin = getCurrentSkin();
+  var stories = new Zuck('stories', {
+    backNative: true,
+    previousTap: true,
+    skin:"Snapgram",
+    autoFullScreen: currentSkin['params']['autoFullScreen'],
+    avatars: currentSkin['params']['avatars'],
+    paginationArrows: currentSkin['params']['paginationArrows'],
+    list: currentSkin['params']['list'],
+    cubeEffect: currentSkin['params']['cubeEffect'],
+    localStorage: true,
+    stories: [
+       
+      {% for i in stories %}
+      Zuck.buildTimelineItem(
+        "{{i.user}}",
+        "{{i.user.profile_set.first.userImage.url}}",
+        "{{i.user}}",
+        "",
+        "{{i.time.timestamp}}",
+        [
+          ["{{i.pk}}", "photo", 5, "{{i.image.url}}", "{{i.image.url}}", '', false, false, "{{i.time.timestamp}}"],
+         
+        ]
+      ),{% endfor %}
+      {% for i in sug_stories %}
+      Zuck.buildTimelineItem(
+        "{{i.user}}",
+        "{{i.user.profile_set.first.userImage.url}}",
+        "{{i.user}}",
+        "",
+        "{{i.time.timestamp}}",
+        [
+          ["{{i.pk}}", "photo", 5, "{{i.image.url}}", "{{i.image.url}}", '', false, false, "{{i.time.timestamp}}"],
+         
+        ]
+      ),{% endfor %}
+      
+      
+      
+    ]
+  });
+</script>
+<script>
+  //show image before upload
+  function fileSelect(evt) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        var files = evt.target.files;
+ 
+        var result = '';
+        var file;
+        for (var i = 0; file = files[i]; i++) {
+            // if the file is not an image, continue
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+ 
+            reader = new FileReader();
+            reader.onload = (function (tFile) {
+                return function (evt) {
+                    var div = document.createElement('div');
+                    div.innerHTML = '<img style="width: 200px;max-height:400px ; margin-top:2em;" src="' + evt.target.result + '" />';
+                    document.getElementById('filesInfo2').appendChild(div);
+                };
+            }(file));
+            reader.readAsDataURL(file);
+        }
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+}
+ 
+document.getElementById('filesToUpload2').addEventListener('change', fileSelect, false);
+</script>
+{% endblock js %}

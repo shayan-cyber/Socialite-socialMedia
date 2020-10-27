@@ -1,0 +1,11 @@
+asgiref==3.2.10
+Django==3.1.1
+django-braces==1.14.0
+django-mathfilters==1.0.0
+django-model-utils==4.0.0
+django-private-chat==0.3.0
+Pillow==7.2.0
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
+websockets==8.1
